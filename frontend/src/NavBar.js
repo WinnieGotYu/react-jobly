@@ -1,2 +1,12 @@
 import React, { Component } from 'react';
-import {Navlink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
+
+class NavBar extends Component {
+  render() { 
+    return ( <div>
+      NAVBAR
+    </div> );
+  }
+}
+ 
+export default NavBar;

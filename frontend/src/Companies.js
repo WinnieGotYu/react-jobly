@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 class Companies extends Component {
   render() { 
-    return ( <Div>
+    return ( <div>
       Companies
-    </Div> );
+    </div> );
   }
 }
  
