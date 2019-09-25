@@ -20,3 +20,27 @@
 .App-link {
   color: #09d3ac;
 }
+
+.CompanyCard, 
+.JobCard  {
+  border: 1px solid black;
+  margin: 5px;
+  max-width: 500px;
+}
+
+.CompanyCard-a {
+  text-decoration: none;
+  color: black;
+}
+
+
+.Companies
+.Company {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Search {
+  width: 500px;
+}

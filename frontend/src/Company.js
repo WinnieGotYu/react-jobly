@@ -14,11 +14,12 @@ class Company extends Component {
     let handle = this.props.match.params.name;
     let company = await JoblyApi.getCompany(handle)
     this.setState({ company: company, loading: false })
+    
   }
 
   render() { 
     return ( 
-      <div>
+      <div className="Company">
         { this.state.loading 
         ? (<h1>Loading...</h1>) 
         : (<div>

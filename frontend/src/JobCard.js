@@ -5,7 +5,7 @@ class JobCard extends Component {
   render() {
     const { title, salary, equity } = this.props.job
     return (
-      <div>
+      <div className="JobCard">
         <h3>{title}</h3>
         <p>Salary: {salary}</p>
         <p>Equity: {equity}</p>
