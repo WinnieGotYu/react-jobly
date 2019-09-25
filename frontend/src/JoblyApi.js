@@ -34,6 +34,11 @@ class JoblyApi {
     let res = await this.request(`companies`, { search: searchTerm } );
     return res.companies;
   }
+
+  static async getJobs(searchTerm) {
+    let res = await this.request(`jobs`, { search: searchTerm } );
+    return res.jobs;
+  }
 }
 
 export default JoblyApi;
