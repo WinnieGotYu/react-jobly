@@ -12,8 +12,8 @@ class Company extends Component {
     }
   }
   async componentDidMount() {
-    let company = await JoblyApi.getCompany("scott-smith")
-    console.log(company)
+    let handle = this.props.match.params.name;
+    let company = await JoblyApi.getCompany(handle)
     this.setState({ company: company, loading: false })
   }
 
