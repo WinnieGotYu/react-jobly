@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class CompanyCard extends Component {
-  
   render() {
-    const { title, salary, equity } = this.props.job
+    const { name, description } = this.props.company;
     return (
       <div>
-        <h3>{title}</h3>
-        <p>Salary: {salary}</p>
-        <p>Equity: {equity}</p>
-        <button>Apply</button>
+        <h3>{name}</h3>
+        <p>{description}</p>
       </div>
     );
   }

@@ -5,7 +5,10 @@ class Search extends Component {
   render() { 
     return ( 
       <div>
-        Search
+        <form>
+          <input placeholder="Enter search term..." />
+          <button type="submit"> Submit </button>
+        </form>
       </div> 
     );
   }

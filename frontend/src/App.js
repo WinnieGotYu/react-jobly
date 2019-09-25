@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import './App.css';
+import "./App.css";
 
-import Routes from "./Routes";
+import Routes from "./routes";
 import NavBar from "./NavBar";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <NavBar />
         <Routes />
       </BrowserRouter>
-    </div>  
+    </div>
   );
 }
 
