@@ -7,19 +7,24 @@ class NavBar extends Component {
     this.state = {
       isLoggedIn: false
     }
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+  
+  handleLogout() {
+    localStorage.clear();
+    this.setState({ isLoggedIn: !this.state.isLoggedIn})
   }
 
-  
   render() {
     return (
       <div>
         <NavLink exact to="/"> Jobly </NavLink>
-        {this.state.isLoggedIn
+        {localStorage.getItem('_token')
           ? (<div>
             <NavLink exact to="/companies"> Companies </NavLink>
             <NavLink exact to="/jobs"> Jobs </NavLink>
             <NavLink exact to="/profile"> Profile </NavLink>
-            <NavLink exact to="/"> Log Out </NavLink>
+            <NavLink exact to="/" onClick={this.handleLogout}> Log Out </NavLink>
           </div>)
           : <NavLink exact to="/login"> Login </NavLink>
         }

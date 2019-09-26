@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import JoblyApi from './JoblyApi';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -26,17 +26,17 @@ class Login extends Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    localStorage.removeItem('_token')
+    localStorage.clear();
     let res = await JoblyApi.getToken(this.state);
-    console.log("handleSubmit", res)
-    localStorage.setItem('_token', res.token)
-    this.setState({
-      username: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      email: ""
-    });
+    this.props.handleLogin(res, this.state.username);
+    // this.setState({
+    //   username: "",
+    //   password: "",
+    //   firstName: "",
+    //   lastName: "",
+    //   email: ""
+    // });
+    this.props.history.push("/jobs")
   }
 
   // async handleToken() {
@@ -49,13 +49,6 @@ class Login extends Component {
   }
 
   render() {
-    if (localStorage.getItem('_token')) {
-      return (
-        <div>
-          <Redirect to='/jobs'></Redirect>
-        </div>
-      );
-    }
     return (
       <div>
         <button onClick={this.toggleRegister}>Login</button>

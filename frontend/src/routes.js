@@ -16,7 +16,7 @@ class Routes extends Component {
         <Route exact path="/companies" render={() => <Companies />} />
         <Route exact path="/companies/:name" render={routeProps => <Company {...routeProps} />} />
         <Route exact path="/jobs" render={() => <Jobs />} />
-        <Route exact path="/login" render={() => <Login />} />
+        <Route exact path="/login" render={routeProps => <Login {...routeProps} handleLogin={this.props.handleLogin}/>} />
         <Route exact path="/profile" render={() => <Profile />} />
         <Redirect to="/" />
       </Switch>
