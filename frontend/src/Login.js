@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import JoblyApi from './JoblyApi';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -8,10 +10,12 @@ class Login extends Component {
       password: "",
       firstName: "",
       lastName: "",
-      email: ""
+      email: "",
+      register: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.toggleRegister = this.toggleRegister.bind(this);
   }
 
   handleChange(evt) {
@@ -20,9 +24,12 @@ class Login extends Component {
     });
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
-    //need function to get token
+    localStorage.removeItem('_token')
+    let res = await JoblyApi.getToken(this.state);
+    console.log("handleSubmit", res)
+    localStorage.setItem('_token', res.token)
     this.setState({
       username: "",
       password: "",
@@ -32,13 +39,27 @@ class Login extends Component {
     });
   }
 
-  getToken() {
-    //need function to get token
+  // async handleToken() {
+  //   let res = await JoblyApi.getToken(this.state);
+  //   return res;
+  // }
+
+  toggleRegister() {
+    this.setState({ register: !this.state.register })
   }
 
   render() {
+    if (localStorage.getItem('_token')) {
+      return (
+        <div>
+          <Redirect to='/jobs'></Redirect>
+        </div>
+      );
+    }
     return (
       <div>
+        <button onClick={this.toggleRegister}>Login</button>
+        <button onClick={this.toggleRegister}>Sign Up</button>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">Username</label>
           <input
@@ -55,36 +76,41 @@ class Login extends Component {
             name="password"
             id="password"
             onChange={this.handleChange}
-            value={this.state.username}
+            value={this.state.password}
           />
           <br></br>
-          <label htmlFor="first-name">First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            id="first-name"
-            onChange={this.handleChange}
-            value={this.state.username}
-          />
-          <br></br>
-          <label htmlFor="last-name">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            id="last-name"
-            onChange={this.handleChange}
-            value={this.state.username}
-          />
-          <br></br>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            onChange={this.handleChange}
-            value={this.state.username}
-          />
-          <br></br>
+          {this.state.register
+            ? (
+              <div>
+                <label htmlFor="first-name">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  id="first-name"
+                  onChange={this.handleChange}
+                  value={this.state.firstName}
+                />
+                <br></br>
+                <label htmlFor="last-name">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="last-name"
+                  onChange={this.handleChange}
+                  value={this.state.lastName}
+                />
+                <br></br>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  onChange={this.handleChange}
+                  value={this.state.email}
+                />
+                <br></br>
+              </div>)
+            : null}
           <button>Submit</button>
         </form>
       </div>

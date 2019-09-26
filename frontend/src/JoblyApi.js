@@ -2,10 +2,10 @@ import axios from "axios";
 
 class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = "get") {
-    paramsOrData._token = // for now, hardcode token for "testing"
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
-      "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30." +
-      "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U";
+    // paramsOrData._token = // for now, hardcode token for "testing"
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
+    //   "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30." +
+    //   "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U";
 
     console.debug("API Call:", endpoint, paramsOrData, verb);
 
@@ -40,14 +40,20 @@ class JoblyApi {
     return res.jobs;
   }
 
-  static async getToken() {
-    let token = await axios({
-      method: "post",
-      url: `http://localhost:3001/login`
-    }).data;
-    console.log(token);
-    return token;
+  static async getToken(userData) {
+    let res = await this.request(`login`, userData, 'post' );
+    console.log("joblyAPI res", res)
+    return res;
   }
+
+  // static async getToken() {
+  //   let token = await axios({
+  //     method: "post",
+  //     url: `http://localhost:3001/login`
+  //   }).data;
+  //   console.log(token);
+  //   return token;
+  // }
 }
 
 
