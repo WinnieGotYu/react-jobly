@@ -19,12 +19,12 @@ class Company extends Component {
 
   render() {
     return (
-      <div className="Company">
+      <div className="container">
         {this.props.isLoggedIn ? (
           this.state.loading ? (
             <h1>Loading...</h1>
           ) : (
-            <div>
+            <div className="card-body">
               {/* <pre>{JSON.stringify(this.state.company, null, 4)}</pre> */}
               <h2>{this.state.company.name}</h2>
               <p>{this.state.company.description}</p>

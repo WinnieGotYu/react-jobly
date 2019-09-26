@@ -36,19 +36,10 @@
   margin: 0 auto; 
   float: none; 
   margin-bottom: 10px; 
+  text-decoration: none;
+  color: black;
 }
 
 .searchBtn {
   margin: 25px auto;
-}
-
-.Companies
-.Company {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.Search {
-  width: 500px;
 }
