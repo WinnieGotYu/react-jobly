@@ -39,6 +39,17 @@ class JoblyApi {
     let res = await this.request(`jobs`, { search: searchTerm } );
     return res.jobs;
   }
+
+  static async getToken() {
+    let token = await axios({
+      method: "post",
+      url: `http://localhost:3001/login`
+    }).data;
+    console.log(token);
+    return token;
+  }
 }
+
+
 
 export default JoblyApi;
