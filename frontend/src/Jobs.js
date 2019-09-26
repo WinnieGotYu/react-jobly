@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Search from "./Search";
 import JobCard from "./JobCard";
 import JoblyApi from "./JoblyApi";
+import { Redirect } from "react-router-dom";
 
 class Jobs extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class Jobs extends Component {
     return (
       <div className="Jobs">
         <Search getSearch={this.getSearch} />
-        {this.state.loading ? (
+        { this.props.isLoggedIn ? 
+        ( this.state.loading ? (
           <h1>Loading...</h1>
         ) : (
           <div>
@@ -35,7 +37,8 @@ class Jobs extends Component {
               <JobCard key={job.id} job={job} />
             ))}
           </div>
-        )}
+        )) : <Redirect to="/login" />
+            }
       </div>
     );
   }

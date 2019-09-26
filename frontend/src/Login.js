@@ -31,10 +31,10 @@ class Login extends Component {
     let isReg = this.state.register;
     if (isReg === false) {
       let res = await JoblyApi.getToken(this.state.user);
-      this.props.handleLogin(res, this.state.user.username);
+      await this.props.handleLogin(res, this.state.user.username);
     } else {
       let res = await JoblyApi.registerUser(this.state.user);
-      this.props.handleLogin(res, this.state.user.username);
+      await this.props.handleLogin(res, this.state.user.username);
     }
     this.props.history.push("/jobs");
   }

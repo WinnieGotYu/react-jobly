@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 
 class Profile extends Component {
   state = {  }
   render() { 
     return ( <div>
-      Profile
+     { this.props.isLoggedIn ? 
+     "HELLO" : <Redirect to="/login" />
+    }
     </div> );
   }
 }
