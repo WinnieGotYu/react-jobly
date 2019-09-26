@@ -10,10 +10,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {},
-      isLoggedIn: false
+      currentUser: {}
     }
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   async componentDidMount() {
@@ -24,21 +24,22 @@ class App extends React.Component {
   }
 
   async handleLogin(res, username) {
-    console.log("before login", this.state);
     localStorage.setItem('_token', res.token)
     localStorage.setItem('username', username);
-    if (localStorage.getItem('_token')) {
-      let user = await JoblyApi.getUser();
-      this.setState({ currentUser: user, isLoggedIn: true })
-    }
-    console.log("after login", this.state);
+    let user = await JoblyApi.getUser();
+    this.setState({ currentUser: user})
+  }
+
+  handleLogout() {
+    localStorage.clear();
+    this.setState({ currentUser: {}})
   }
 
   render() {
     return (
       <div className="App">
         <BrowserRouter>
-          <NavBar />
+          <NavBar logOut={this.handleLogout} isLoggedIn={!!this.state.currentUser.username}/>
           <Routes handleLogin={this.handleLogin}/>
         </BrowserRouter>
       </div>

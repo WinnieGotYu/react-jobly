@@ -42,10 +42,15 @@ class JoblyApi {
     return res;
   }
 
+  static async registerUser(userData) {
+    let res = await this.request(`users`, userData, 'post' );
+    console.log("GETTUSERRRRRR APIIIII", res);
+    return res;
+  }
+
   static async getUser() {
     let username = localStorage.getItem('username');
     let res = await this.request(`users/${username}`);
-    console.log(res)
     return res.user
   }
 

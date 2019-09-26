@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import JoblyApi from './JoblyApi';
+import JoblyApi from "./JoblyApi";
 // import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      email: "",
+      user: {
+        username: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        email: ""
+      },
       register: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,24 +21,22 @@ class Login extends Component {
   }
 
   handleChange(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    });
+    // this.setState( state => ({ state.user : {[evt.target.name]: evt.target.value} });
+    this.setState({ user: {...this.state.user, [evt.target.name]: evt.target.value } });
   }
 
   async handleSubmit(evt) {
     evt.preventDefault();
     localStorage.clear();
-    let res = await JoblyApi.getToken(this.state);
-    this.props.handleLogin(res, this.state.username);
-    // this.setState({
-    //   username: "",
-    //   password: "",
-    //   firstName: "",
-    //   lastName: "",
-    //   email: ""
-    // });
-    this.props.history.push("/jobs")
+    let isReg = this.state.register;
+    if (isReg === false) {
+      let res = await JoblyApi.getToken(this.state.user);
+      this.props.handleLogin(res, this.state.user.username);
+    } else {
+      let res = await JoblyApi.registerUser(this.state.user);
+      this.props.handleLogin(res, this.state.user.username);
+    }
+    this.props.history.push("/jobs");
   }
 
   // async handleToken() {
@@ -45,7 +45,7 @@ class Login extends Component {
   // }
 
   toggleRegister() {
-    this.setState({ register: !this.state.register })
+    this.setState({ register: !this.state.register });
   }
 
   render() {
@@ -60,7 +60,7 @@ class Login extends Component {
             name="username"
             id="username"
             onChange={this.handleChange}
-            value={this.state.username}
+            value={this.state.user.username}
           />
           <br></br>
           <label htmlFor="password">Password</label>
@@ -69,41 +69,40 @@ class Login extends Component {
             name="password"
             id="password"
             onChange={this.handleChange}
-            value={this.state.password}
+            value={this.state.user.password}
           />
           <br></br>
-          {this.state.register
-            ? (
-              <div>
-                <label htmlFor="first-name">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  id="first-name"
-                  onChange={this.handleChange}
-                  value={this.state.firstName}
-                />
-                <br></br>
-                <label htmlFor="last-name">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  id="last-name"
-                  onChange={this.handleChange}
-                  value={this.state.lastName}
-                />
-                <br></br>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  onChange={this.handleChange}
-                  value={this.state.email}
-                />
-                <br></br>
-              </div>)
-            : null}
+          {this.state.register ? (
+            <div>
+              <label htmlFor="first-name">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                id="first-name"
+                onChange={this.handleChange}
+                value={this.state.user.first_name}
+              />
+              <br></br>
+              <label htmlFor="last-name">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                id="last-name"
+                onChange={this.handleChange}
+                value={this.state.user.last_name}
+              />
+              <br></br>
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                onChange={this.handleChange}
+                value={this.state.user.email}
+              />
+              <br></br>
+            </div>
+          ) : null}
           <button>Submit</button>
         </form>
       </div>
