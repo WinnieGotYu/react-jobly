@@ -21,18 +21,26 @@
   color: #09d3ac;
 }
 
-.CompanyCard, 
 .JobCard  {
   border: 1px solid black;
   margin: 5px;
   max-width: 500px;
-}
+} 
 
-.CompanyCard-a {
+.company-card {
   text-decoration: none;
   color: black;
 }
 
+.card {
+  margin: 0 auto; 
+  float: none; 
+  margin-bottom: 10px; 
+}
+
+.searchBtn {
+  margin: 25px auto;
+}
 
 .Companies
 .Company {

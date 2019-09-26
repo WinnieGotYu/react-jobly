@@ -26,7 +26,7 @@ class Jobs extends Component {
   
   render() {
     return (
-      <div className="Jobs">
+      <div className="container">
         <Search getSearch={this.getSearch} />
         { this.props.isLoggedIn ? 
         ( this.state.loading ? (

@@ -5,6 +5,9 @@ import "./App.css";
 import Routes from "./routes";
 import NavBar from "./NavBar";
 import JoblyApi from "./JoblyApi";
+import jwt from "jsonwebtoken";
+//decode token grab username 
+//set state with username 
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +15,10 @@ class App extends React.Component {
     this.state = {
       currentUser: {}
     };
+    if (localStorage.getItem("_token")) {
+      let payload = jwt.decode(localStorage.getItem("_token"));
+      this.state.currentUser = { username: payload.username};
+    }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
