@@ -10,11 +10,24 @@ class Company extends Component {
       company: {},
       loading: true
     };
+    this.handleApply = this.handleApply.bind(this);
   }
   async componentDidMount() {
     let handle = this.props.match.params.name;
     let company = await JoblyApi.getCompany(handle);
     this.setState({ company: company, loading: false });
+  }
+
+  async handleApply(jobId) {
+    await JoblyApi.apply(jobId);
+    this.setState(st => ({
+      company: {
+        ...st.company,
+        jobs: st.company.jobs.map(job => {
+          return job.id === jobId ? { ...job, state: "applied" } : job;
+        })
+      }
+    }));
   }
 
   render() {
@@ -29,7 +42,11 @@ class Company extends Component {
               <h2>{this.state.company.name}</h2>
               <p>{this.state.company.description}</p>
               {this.state.company.jobs.map(job => (
-                <JobCard key={job.id} job={job} />
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  handleApply={this.handleApply}
+                />
               ))}
             </div>
           )

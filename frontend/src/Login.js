@@ -22,7 +22,9 @@ class Login extends Component {
 
   handleChange(evt) {
     // this.setState( state => ({ state.user : {[evt.target.name]: evt.target.value} });
-    this.setState({ user: {...this.state.user, [evt.target.name]: evt.target.value } });
+    this.setState({
+      user: { ...this.state.user, [evt.target.name]: evt.target.value }
+    });
   }
 
   async handleSubmit(evt) {
@@ -50,61 +52,85 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.toggleRegister}>Login</button>
-        <button onClick={this.toggleRegister}>Sign Up</button>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            onChange={this.handleChange}
-            value={this.state.user.username}
-          />
-          <br></br>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={this.handleChange}
-            value={this.state.user.password}
-          />
-          <br></br>
-          {this.state.register ? (
-            <div>
-              <label htmlFor="first-name">First Name</label>
-              <input
-                type="text"
-                name="first_name"
-                id="first-name"
-                onChange={this.handleChange}
-                value={this.state.user.first_name}
-              />
-              <br></br>
-              <label htmlFor="last-name">Last Name</label>
-              <input
-                type="text"
-                name="last_name"
-                id="last-name"
-                onChange={this.handleChange}
-                value={this.state.user.last_name}
-              />
-              <br></br>
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                onChange={this.handleChange}
-                value={this.state.user.email}
-              />
-              <br></br>
+      <div className="container col-md-6">
+        <div className="card">
+          <div className="card-body">
+            <div className="btn-group">
+              <button className="btn btn-primary" onClick={this.toggleRegister}>
+                Login
+              </button>
+              <button className="btn btn-primary" onClick={this.toggleRegister}>
+                Sign Up
+              </button>
             </div>
-          ) : null}
-          <button>Submit</button>
-        </form>
+            <form className="mt-3" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="username"
+                  id="username"
+                  onChange={this.handleChange}
+                  value={this.state.user.username}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  className="form-control"
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={this.handleChange}
+                  value={this.state.user.password}
+                />
+              </div>
+              <br></br>
+              {this.state.register ? (
+                <div>
+                  <div className="form-group">
+                    <label htmlFor="first-name">First Name</label>
+                    <input
+                    className="form-control"
+                      type="text"
+                      name="first_name"
+                      id="first-name"
+                      onChange={this.handleChange}
+                      value={this.state.user.first_name}
+                    />
+                  </div>
+                  <br></br>
+                  <div className="form-group">
+                    <label htmlFor="last-name">Last Name</label>
+                    <input
+                    className="form-control"
+                      type="text"
+                      name="last_name"
+                      id="last-name"
+                      onChange={this.handleChange}
+                      value={this.state.user.last_name}
+                    />
+                  </div>
+                  <br></br>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                    className="form-control"
+                      type="text"
+                      name="email"
+                      id="email"
+                      onChange={this.handleChange}
+                      value={this.state.user.email}
+                    />
+                  </div>
+                  <br></br>
+                </div>
+              ) : null}
+              <button className="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

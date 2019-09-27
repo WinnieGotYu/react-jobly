@@ -13,6 +13,7 @@ class Jobs extends Component {
       searchValue: ""
     };
     this.getSearch = this.getSearch.bind(this);
+    this.handleApply = this.handleApply.bind(this);
   }
   async componentDidMount() {
     let jobs = await JoblyApi.getJobs();
@@ -23,22 +24,33 @@ class Jobs extends Component {
     let jobs = await JoblyApi.getJobs(searchValue);
     this.setState({ jobs: jobs, loading: false });
   }
-  
+
+  async handleApply(jobId) {
+    await JoblyApi.apply(jobId);
+    this.setState(st => ({
+      jobs: st.jobs.map(job => {
+        return job.id === jobId ? { ...job, state: 'applied' } : job;
+      })
+    }));
+  }
+
   render() {
     return (
       <div className="container">
         <Search getSearch={this.getSearch} />
-        { this.props.isLoggedIn ? 
-        ( this.state.loading ? (
-          <h1>Loading...</h1>
+        {this.props.isLoggedIn ? (
+          this.state.loading ? (
+            <h1>Loading...</h1>
+          ) : (
+            <div>
+              {this.state.jobs.map(job => (
+                <JobCard handleApply={this.handleApply} key={job.id} job={job} />
+              ))}
+            </div>
+          )
         ) : (
-          <div>
-            {this.state.jobs.map(job => (
-              <JobCard key={job.id} job={job} />
-            ))}
-          </div>
-        )) : <Redirect to="/login" />
-            }
+          <Redirect to="/login" />
+        )}
       </div>
     );
   }

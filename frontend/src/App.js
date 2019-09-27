@@ -48,7 +48,6 @@ class App extends React.Component {
     this.setState(st => ({ 
       currentUser: {...st.currentUser, ...user.user}
     }));
-    console.log("App Edit Curr USER", this.state.currentUser)
   }
 
   render() {
