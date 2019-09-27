@@ -44,7 +44,6 @@ class JoblyApi {
 
   static async registerUser(userData) {
     let res = await this.request(`users`, userData, 'post' );
-    console.log("GETTUSERRRRRR APIIIII", res);
     return res;
   }
 
@@ -54,14 +53,14 @@ class JoblyApi {
     return res.user
   }
 
-  // static async getToken() {
-  //   let token = await axios({
-  //     method: "post",
-  //     url: `http://localhost:3001/login`
-  //   }).data;
-  //   console.log(token);
-  //   return token;
-  // }
+  static async editUser(userData) {
+    let username = localStorage.getItem('username'); 
+    let res = await this.request(`users/${username}`, userData, 'patch');
+    // console.log("API Edit UserRRRRR", res)
+    return res;
+  }
+
+  // static async apply()
 }
 
 

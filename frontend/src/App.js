@@ -21,6 +21,7 @@ class App extends React.Component {
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.editUser = this.editUser.bind(this)
   }
 
   async componentDidMount() {
@@ -42,6 +43,14 @@ class App extends React.Component {
     this.setState({ currentUser: {} });
   }
 
+  async editUser(userData) {
+    let user = await JoblyApi.editUser(userData);
+    this.setState(st => ({ 
+      currentUser: {...st.currentUser, ...user.user}
+    }));
+    console.log("App Edit Curr USER", this.state.currentUser)
+  }
+
   render() {
     return (
       <div className="App">
@@ -54,6 +63,7 @@ class App extends React.Component {
             isLoggedIn={!!this.state.currentUser.username}
             currUser={this.state.currentUser}
             handleLogin={this.handleLogin}
+            editUser={this.editUser}
           />
         </BrowserRouter>
       </div>

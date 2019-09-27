@@ -9,11 +9,12 @@ import Login from "./Login";
 import Profile from "./Profile";
 
 class Routes extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
+
   render() {
-    let { isLoggedIn, currUser, handleLogin } = this.props
+    let { isLoggedIn, currUser, handleLogin, editUser } = this.props
     return (
       <Switch>
         <Route exact path="/" render={() => <Home />} />
@@ -21,7 +22,7 @@ class Routes extends Component {
         <Route exact path="/companies/:name" render={routeProps => <Company {...routeProps} isLoggedIn={isLoggedIn} currUser={currUser}/>} />
         <Route exact path="/jobs" render={() => <Jobs isLoggedIn={isLoggedIn} currUser={currUser}/>} />
         <Route exact path="/login" render={routeProps => <Login {...routeProps} handleLogin={handleLogin}/>} />
-        <Route exact path="/profile" render={() => <Profile isLoggedIn={isLoggedIn} currUser={currUser}/>} />
+        <Route exact path="/profile" render={() => <Profile isLoggedIn={isLoggedIn} currUser={currUser} editUser={editUser}/>} />
         <Redirect to="/" />
       </Switch>
     )
